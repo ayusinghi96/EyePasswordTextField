@@ -22,6 +22,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '11.0'
 
   s.source_files = 'EyePasswordTextField/Classes'
+  s.resources = 'EyePasswordTextField/*.xcassets'
 
   s.frameworks = 'UIKit'
 end
