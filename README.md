@@ -22,7 +22,7 @@ pod 'EyePasswordTextField'
 
 ## Author
 
-ayusinghi96, 3100aysi@nibe.se
+Ayush Singhi, ayusinghi96@gmail.com
 
 ## License
 
