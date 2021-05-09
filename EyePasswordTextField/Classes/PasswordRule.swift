@@ -13,11 +13,17 @@ import Foundation
 ///
 public struct PasswordRule
 {
+    /// The minimum password length.
     private let minLength: Int
+    /// The minimum password length.
     private let maxLength: Int
+    /// If password has numbers.
     private let hasNumbers: Bool
+    /// If password has uppercases.
     private let hasUppercase: Bool
+    /// If password has special characters.
     private let hasSpecialCharacters: Bool
+    /// The allowed special characters.
     private let allowedCharacters: [String]
 
     public init(
