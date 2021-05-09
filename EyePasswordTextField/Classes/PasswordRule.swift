@@ -2,7 +2,7 @@
 //  PasswordRule.swift
 //  EyePasswordTextField
 //
-//  Created by 55 TECH on 09/05/21.
+//  Created by Ayush Singhi on 09/05/21.
 //
 
 import Foundation
