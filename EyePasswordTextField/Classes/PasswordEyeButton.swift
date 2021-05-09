@@ -26,7 +26,7 @@ public class PasswordEyeButton: UIButton
         /// Icon for this state.
         fileprivate var icon: UIImage?
         {
-            /// This bundle
+            /// This bundle.
             let bundle = Bundle.init(for: PasswordEyeButton.self)
             let iconName: String = {
                 switch self
