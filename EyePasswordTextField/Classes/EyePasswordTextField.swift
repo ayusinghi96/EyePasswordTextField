@@ -10,27 +10,22 @@ import UIKit
 
 
 ///
-///
-///
-public protocol EyePasswordFieldDelegate: UITextFieldDelegate
-{
-    func didSelectEye()
-}
-
-
-///
 /// The Password Eye button
 ///
 open class EyePasswordTextField: UITextField
 {
+    ///
+    /// File constants.
+    ///
     private enum Constants
     {
+        /// The right offset for the rightView.
         static let rightOffset = 5
+        /// The side length for the subviews.
         static let sideLength = 25
     }
 
-    public weak var fieldDelegate: EyePasswordFieldDelegate?
-
+    /// The icon to set on eye button for show password state.
     public var showPasswordIcon: UIImage?
     {
         didSet
@@ -39,6 +34,7 @@ open class EyePasswordTextField: UITextField
         }
     }
 
+    /// The icon to set on eye button for hide password state.
     public var hidePasswordIcon: UIImage?
     {
         didSet
@@ -46,6 +42,9 @@ open class EyePasswordTextField: UITextField
             self.eyeButton?.hidePasswordIcon = self.hidePasswordIcon
         }
     }
+
+    /// The eye password text field delegate.
+    public weak var fieldDelegate: EyePasswordFieldDelegate?
 
     public init()
     {
@@ -66,6 +65,11 @@ open class EyePasswordTextField: UITextField
 // MARK: - Override
 extension EyePasswordTextField
 {
+    override public var tintColor: UIColor!
+    {
+        didSet { self.eyeButton?.tintColor = tintColor }
+    }
+
     override public func awakeFromNib()
     {
         super.awakeFromNib()
@@ -73,16 +77,12 @@ extension EyePasswordTextField
         self.setupViews()
     }
 
-    override public var tintColor: UIColor!
-    {
-        didSet
-        {
-            self.eyeButton?.tintColor = tintColor
-        }
-    }
-
     open override func rightViewRect(forBounds bounds: CGRect) -> CGRect
     {
+        // Provide a new frame to right view.
+        //
+        // Add right padding to `rightView`.
+        // Vertically centre the `rightView` in the textField.
         let x = Int(bounds.width) - Constants.sideLength - Constants.rightOffset
         let y = (Int(bounds.height) - Constants.sideLength) / 2
         let rightViewBounds = CGRect(
@@ -99,29 +99,32 @@ extension EyePasswordTextField
 // MARK: - Helpers
 extension EyePasswordTextField
 {
-    private func setupViews()
-    {
-        self.isSecureTextEntry = true
-        self.textContentType = .password
-
-        let eyeButton = PasswordEyeButton()
-
-        eyeButton.onSelect = { [weak self] in
-            self?.fieldDelegate?.didSelectEye()
-            self?.isSecureTextEntry.toggle()
-        }
-
-        self.rightViewMode = .always
-        self.rightView = eyeButton
-    }
-}
-
-
-// MARK: - Convenience props.
-extension EyePasswordTextField
-{
+    /// The eye button.
     private var eyeButton: PasswordEyeButton?
     {
         return self.rightView as? PasswordEyeButton
+    }
+
+    ///
+    /// Setup initial views.
+    ///
+    private func setupViews()
+    {
+        // Make sure the view is a `secureTextEntry` field at the beginning.
+        self.isSecureTextEntry = true
+
+        // Create the eye button.
+        let eyeButton = PasswordEyeButton()
+
+        // Add the required action.
+        eyeButton.onSelect = { [weak self] in
+            guard let self = self else { return }
+            self.fieldDelegate?.didTapEyeButton(forTextfield: self)
+            self.isSecureTextEntry.toggle()
+        }
+
+        // Add the button to text field.
+        self.rightViewMode = .always
+        self.rightView = eyeButton
     }
 }

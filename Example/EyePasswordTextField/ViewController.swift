@@ -7,20 +7,27 @@
 //
 
 import UIKit
+
 import EyePasswordTextField
 
+
 ///
-///
+/// The sample view controller.
 ///
 class ViewController: UIViewController
 {
-    ///
+    /// A user name text field.
     @IBOutlet private var userNameTextField: UITextField!
     /// The custom password field.
     @IBOutlet private var passwordTextField: EyePasswordTextField!
     /// The login button.
     @IBOutlet private var loginButton: UIButton!
+}
 
+
+// MARK: - Overrides
+extension ViewController
+{
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -35,10 +42,20 @@ class ViewController: UIViewController
 }
 
 
+// MARK: - Action
+extension ViewController
+{
+    @IBAction private func onLoginTapped(_ sender: UIButton)
+    {
+        // Implementation needed.
+    }
+}
+
+
 // MARK: - EyePasswordFieldDelegate Confromance
 extension ViewController: EyePasswordFieldDelegate
 {
-    func didSelectEye()
+    func didTapEyeButton(forTextfield textField: UITextField)
     {
         // If some implementation required
     }

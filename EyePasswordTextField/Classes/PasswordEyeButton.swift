@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 ///
 /// The Password Eye button
 ///
@@ -23,46 +24,36 @@ public class PasswordEyeButton: UIButton
         case closed
 
         /// Icon for this state.
-        fileprivate var icon: UIImage
+        fileprivate var icon: UIImage?
         {
+            /// This bundle
             let bundle = Bundle.init(for: PasswordEyeButton.self)
-            switch self
-            {
-            case .open:
-                let icon = UIImage(named: "showPasswordIcon", in: bundle, compatibleWith: nil)?
-                    .withRenderingMode(.alwaysTemplate)
-                return icon ?? UIImage()
-            case .closed:
-                let icon = UIImage(named: "hidePasswordIcon", in: bundle, compatibleWith: nil)?
-                    .withRenderingMode(.alwaysTemplate)
-                return icon ?? UIImage()
-            }
+            let iconName: String = {
+                switch self
+                {
+                case .open: return "showPasswordIcon"
+                case .closed: return "hidePasswordIcon"
+                }
+            }()
+
+            return UIImage(named: iconName, in: bundle, compatibleWith: nil)?
+                .withRenderingMode(.alwaysTemplate)
         }
     }
 
     /// An action when button is tapped.
     var onSelect: (() -> Void)?
 
+    /// The icon to set on eye button for `open` eye state.
     var showPasswordIcon: UIImage?
     {
-        didSet
-        {
-            if self.eyeState == .open
-            {
-                self.setImage(self.showPasswordIcon ?? self.eyeState.icon, for: .normal)
-            }
-        }
+        didSet { self.updateIcon() }
     }
 
+    /// The icon to set on eye button for `closed` state.
     var hidePasswordIcon: UIImage?
     {
-        didSet
-        {
-            if self.eyeState == .closed
-            {
-                self.setImage(self.hidePasswordIcon ?? self.eyeState.icon, for: .normal)
-            }
-        }
+        didSet { self.updateIcon() }
     }
 
     /// Current eye state.
@@ -85,20 +76,19 @@ public class PasswordEyeButton: UIButton
 // MARK: - Override
 extension PasswordEyeButton
 {
-    public override func awakeFromNib()
-    {
-        super.awakeFromNib()
-
-        self.setupViews()
-    }
-
     public override var tintColor: UIColor!
     {
         didSet
         {
             let proxy = Self.appearance()
-            proxy.tintColor = tintColor 
+            proxy.tintColor = tintColor
         }
+    }
+
+    public override func awakeFromNib()
+    {
+        super.awakeFromNib()
+        self.setupViews()
     }
 }
 
@@ -113,9 +103,11 @@ extension PasswordEyeButton
     {
         guard self.isEnabled else { return }
 
+        // Toggle current eye state.
         self.toggleEyeState()
+        // Update button icon.
         self.updateIcon()
-
+        // Perform selection action.
         self.onSelect?()
     }
 }
