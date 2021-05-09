@@ -45,6 +45,8 @@ open class EyePasswordTextField: UITextField
 
     /// The eye password text field delegate.
     public weak var fieldDelegate: EyePasswordFieldDelegate?
+    /// The password rule.
+    public var passwordRule: PasswordRule = .default
 
     public init()
     {
@@ -126,5 +128,16 @@ extension EyePasswordTextField
         // Add the button to text field.
         self.rightViewMode = .always
         self.rightView = eyeButton
+    }
+}
+
+
+// MARK: - Convenience props
+extension EyePasswordTextField
+{
+    /// The eye button.
+    public var isPasswordValid: Bool
+    {
+        return self.passwordRule.validatePassword(password: self.text ?? "")
     }
 }

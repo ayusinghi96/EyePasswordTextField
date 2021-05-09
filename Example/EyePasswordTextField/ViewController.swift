@@ -33,6 +33,12 @@ extension ViewController
         super.viewDidLoad()
 
         self.passwordTextField.fieldDelegate = self
+        self.passwordTextField.passwordRule = PasswordRule(
+            minLength: 10,
+            maxLength: 20,
+            hasUppercase: false,
+            hasSpecialCharacters: false
+        )
     }
 
     override func didReceiveMemoryWarning()
@@ -47,7 +53,11 @@ extension ViewController
 {
     @IBAction private func onLoginTapped(_ sender: UIButton)
     {
-        // Implementation needed.
+        if self.passwordTextField.isPasswordValid
+        {
+            // Perform login
+            print("Logged in")
+        }
     }
 }
 
