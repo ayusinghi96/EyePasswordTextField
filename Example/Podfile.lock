@@ -1,0 +1,16 @@
+PODS:
+  - EyePasswordTextField (0.1.0)
+
+DEPENDENCIES:
+  - EyePasswordTextField (from `../`)
+
+EXTERNAL SOURCES:
+  EyePasswordTextField:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  EyePasswordTextField: 1c99aac37b8daca9977cf7504e0a0bbdbf573638
+
+PODFILE CHECKSUM: 5594e6f0301caad50dcc2af7c17bd7a3e9c3778d
+
+COCOAPODS: 1.10.0
