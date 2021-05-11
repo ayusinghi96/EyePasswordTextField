@@ -12,6 +12,7 @@ Requirements to use this library are.
 
 * Minimum deployment target of App should be `iOS 11.0` or above.
 * Supported Swift version should be `Swift 5`.
+* `CocoaPods 1.10.1`, to update use: `sudo gem install cocoapods`
 
 ## Installation
 
